@@ -17,6 +17,10 @@
 - 尚未在 iPhone、iPad 或舊版 iOS Safari 實機驗證音效和觸控。桌面瀏覽器手機尺寸模擬不能代表 iOS 實測。
 - 已檢查本機檔案大小與路徑引用；尚未在實際慢速行動網路、冷快取及不同手機瀏覽器量測首屏秒數，故不宣稱特定裝置的實際載入時間。
 
+## 待處理
+
+- iPad／iOS Web Audio：目前 YouTube 有聲，但本遊戲在 iPad 的 Safari 與 Chrome 仍無聲；需取得 Safari Web Inspector 的 `AudioContext.state`、系統靜音／音量與輸出路由資訊，再確認是否需要改用 HTMLAudio fallback。
+
 ## 每次修改後的檢查清單
 
 1. 檢查 `index.html` 的 JavaScript 語法；確認首次載入的角色、對應方向背景和單一輕量道具圖集均為本機相對路徑素材。
@@ -59,3 +63,5 @@
 ### 驗證與限制
 
 已通過 JavaScript 語法檢查並確認事件綁定；尚未取得本次 iPad 實機的 Safari Web Inspector console 或回歸錄影，因此仍需 Jean 在同一台 iPad 上重新開啟最新版網址、按開始並實際接到道具確認。若仍無聲，下一步記錄 `AudioContext.state`、系統靜音／音量與音訊輸出路由。
+
+
