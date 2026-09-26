@@ -25,3 +25,37 @@
 4. 以 iOS Safari 真機測試：先確認實體音量，再按開始並接到物件；分別測音效預設開啟、關閉後重新開啟。
 5. 若替換或加入圖片，確認檔案大小、透明背景、圖集裁切、相對路徑與快取更新；GitHub Pages 專案站避免使用指向網站根目錄的錯誤絕對路徑。
 6. 若變更 Canvas API，確認目標舊版瀏覽器支援情況並提供備援；不可只用桌面 F12 裝置模擬宣稱完成 iPhone 實測。
+
+
+## 踩坑紀錄：圖片載入過慢與 fast.webp
+
+### 症狀
+
+首次開啟遊戲時，開場徽章與標題圖示載入較慢；原始 PNG 合計約 2.28 MB，會讓慢速網路或冷快取的首屏等待變明顯。
+
+### 解決方案
+
+參考 `baby-mid-autumn-game`，保留原始 PNG 作為素材來源，另外產生適合網頁傳輸的 `*-fast.webp`：
+
+- `assets/cat-paw.png` 約 1.50 MB → `assets/cat-paw-fast.webp` 約 113 KB。
+- `assets/conference-badge-large.png` 約 789 KB → `assets/conference-badge-large-fast.webp` 約 94 KB。
+- `index.html` 改用兩個 `fast.webp`；原始 PNG 不再由遊戲頁面直接載入。
+- 優化後主要啟動圖片約 207 KB，減少約 91%。
+
+### 驗證與限制
+
+已確認檔案存在、路徑引用正確，並通過 inline JavaScript 語法檢查；尚未以冷快取、慢速行動網路及多種實機量測首屏秒數，因此不宣稱特定裝置的實際載入時間。
+
+## 踩坑紀錄：iPad／iOS Web Audio 沒有聲音
+
+### 症狀與線索
+
+寶寶月餅遊戲曾遇到 iPad 或舊版 iOS Safari 沒有音效。桌面瀏覽器的 iPad 尺寸模擬不能代表 iPad 實機；iOS 對 Web Audio 的使用者手勢、AudioContext 狀態與音訊路由有額外限制。單純呼叫 `resume()` 不等於音效已解鎖。
+
+### 解決方案
+
+本專案在音效按鈕與開始按鈕的 `touchstart`、`touchend`、`pointerdown` 使用者手勢中呼叫 `ensureAudio(true)`；建立或恢復 AudioContext 後，以極低音量的短 oscillator 做一次解鎖 priming，並在分頁回到前景時再次嘗試恢復。保留 `resume()` Promise 的失敗處理，避免未處理 rejection。
+
+### 驗證與限制
+
+已通過 JavaScript 語法檢查並確認事件綁定；尚未取得本次 iPad 實機的 Safari Web Inspector console 或回歸錄影，因此仍需 Jean 在同一台 iPad 上重新開啟最新版網址、按開始並實際接到道具確認。若仍無聲，下一步記錄 `AudioContext.state`、系統靜音／音量與音訊輸出路由。
