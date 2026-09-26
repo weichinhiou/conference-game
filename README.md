@@ -32,9 +32,9 @@ conference-game/
 ├── og-image.png
 └── assets/
     ├── cat-mascot.webp
-    ├── cat-paw.png
-    ├── conference-badge-small.png
-    ├── conference-badge-large.png
+    ├── cat-paw-fast.webp
+    ├── conference-badge-small-fast.webp
+    ├── conference-badge-large-fast.webp
     ├── airport-wide.webp
     ├── airport-tall.webp
     ├── items-atlas.webp

@@ -9,10 +9,13 @@
 - 音效使用 Web Audio API，按效果類別播放不同音型：+1／+2 分、+5 分、加秒、扣分、扣秒與卡住各有明確差異；設計沿用《寶寶過中秋》的音效對應。程式在開始按鈕、音效按鈕及觸控結束事件嘗試恢復 AudioContext，以涵蓋 iOS 對使用者手勢的限制。
 - 採用 Pointer Events 拖曳，保留 `touch-action: none`、指標取消與失焦清理；支援直式手機、橫式及桌面。
 
+- 2026-09-27：參考 baby-mid-autumn-game 的 *-fast.webp 做法，將開場會直接載入的 cat-paw.png（約 1.50 MB）與 conference-badge-large.png（約 789 KB）轉為 assets/cat-paw-fast.webp（約 113 KB）及 assets/conference-badge-large-fast.webp（約 94 KB），並更新 index.html 引用。兩張圖片合計從約 2.28 MB 降至約 207 KB；原始 PNG 保留作為素材來源。另產生 conference-badge-small-fast.webp 與 og-image-fast.webp 備用，但目前頁面未直接載入後兩者。
+
 ## 驗證狀態
 
 - 已執行 JavaScript 語法檢查與啟動流程 smoke test。
 - 尚未在 iPhone、iPad 或舊版 iOS Safari 實機驗證音效和觸控。桌面瀏覽器手機尺寸模擬不能代表 iOS 實測。
+- 已檢查本機檔案大小與路徑引用；尚未在實際慢速行動網路、冷快取及不同手機瀏覽器量測首屏秒數，故不宣稱特定裝置的實際載入時間。
 
 ## 每次修改後的檢查清單
 
