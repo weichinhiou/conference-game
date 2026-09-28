@@ -32,6 +32,9 @@ conference-game/
 ├── og-image.png
 └── assets/
     ├── cat-mascot.webp
+    ├── cat-catch-good.webp
+    ├── cat-catch-bad.webp
+    ├── cat-stunned.webp
     ├── cat-paw-fast.webp
     ├── conference-badge-small-fast.webp
     ├── conference-badge-large-fast.webp
@@ -42,3 +45,4 @@ conference-game/
 ```
 
 角色、直橫式出國場景、十二種道具圖集與計分卡皆使用本機 WebP 素材；遊戲中的背景合成、角色移動與掉落效果以 Canvas 繪製。圖集約 193 KB，不依賴第三方 JavaScript 套件。不依賴第三方 JavaScript 套件。
+

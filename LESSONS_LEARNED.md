@@ -11,6 +11,8 @@
 
 - 2026-09-27：參考 baby-mid-autumn-game 的 *-fast.webp 做法，將開場會直接載入的 cat-paw.png（約 1.50 MB）與 conference-badge-large.png（約 789 KB）轉為 assets/cat-paw-fast.webp（約 113 KB）及 assets/conference-badge-large-fast.webp（約 94 KB），並更新 index.html 引用。兩張圖片合計從約 2.28 MB 降至約 207 KB；原始 PNG 保留作為素材來源。另產生 conference-badge-small-fast.webp 與 og-image-fast.webp 備用，但目前頁面未直接載入後兩者。
 
+- 2026-09-29：新增三張透明 WebP 動作圖：`cat-catch-good.webp`（正向接到）、`cat-catch-bad.webp`（負向接到）、`cat-stunned.webp`（被卡住）。`applyCatch()` 依道具 `kind` 切換正／負動作圖，`stun` 期間固定顯示暈眩圖，動作結束後回到待機貓咪。
+
 ## 驗證狀態
 
 - 已執行 JavaScript 語法檢查與啟動流程 smoke test。
@@ -63,5 +65,6 @@
 ### 驗證與限制
 
 已通過 JavaScript 語法檢查並確認事件綁定；尚未取得本次 iPad 實機的 Safari Web Inspector console 或回歸錄影，因此仍需 Jean 在同一台 iPad 上重新開啟最新版網址、按開始並實際接到道具確認。若仍無聲，下一步記錄 `AudioContext.state`、系統靜音／音量與音訊輸出路由。
+
 
 
