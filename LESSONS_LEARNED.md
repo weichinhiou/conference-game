@@ -84,3 +84,10 @@
 
 - 已通過 inline JavaScript `node --check`、fast.webp 尺寸與檔案存在檢查、方向載入條件靜態檢查及 `git diff --check`。
 - 尚未在真實 iPhone／iPad、慢速行動網路與冷快取實測；部署後需比較首次開啟的底圖出現時間與清晰度。
+## 2026-09-29：物件圖集 fast.webp 載入優化
+
+- `items-atlas.webp` 保留 800 × 600 的高畫質圖集與既有 4 × 3 裁切座標，另外產生同尺寸的 `items-atlas-fast.webp`。
+- fast 圖集約 87 KB，相較原圖約 193 KB 減少約 55%；圖例與掉落物先用 fast 圖集，原圖在 fast 圖集完成後以低優先權載入並替換。
+- 不拆成 12 個獨立圖片請求，避免增加手機網路連線與 HTTP 請求數。
+- 已通過 inline JavaScript `node --check`、兩種圖集尺寸／模式檢查、fast／full 繪製路徑靜態檢查與 `git diff --check`。初次靜態 assertion 將兩種 Canvas API 誤當成同一個呼叫，修正檢查條件後通過。
+- 尚未以真實手機冷快取量測圖例首次出現時間；部署後需確認 fast 圖清晰度與高畫質替換是否正常。
