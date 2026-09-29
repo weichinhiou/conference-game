@@ -65,6 +65,22 @@
 ### 驗證與限制
 
 已通過 JavaScript 語法檢查並確認事件綁定；尚未取得本次 iPad 實機的 Safari Web Inspector console 或回歸錄影，因此仍需 Jean 在同一台 iPad 上重新開啟最新版網址、按開始並實際接到道具確認。若仍無聲，下一步記錄 `AudioContext.state`、系統靜音／音量與音訊輸出路由。
+## 2026-09-29：底圖冷快取載入優化
 
+### 診斷結果
 
+- 原本 `airport-wide.webp` 約 162 KB、`airport-tall.webp` 約 191 KB；程式初始化時兩張都設定 `src`，手機也會下載未使用的橫式底圖。
+- GitHub Pages 強制下載量測各約 2.4～2.8 秒，回應 `Cache-Control: max-age=600`；一般快取不能涵蓋硬重新整理、Safari 記憶體回收或超過快取時間的情境。
+- 原本首屏還會同時請求貓咪正／負／暈眩動作圖與其他素材，可能與底圖競爭頻寬。
 
+### 採用方案
+
+- 新增 `assets/airport-wide-fast.webp`（720 × 405，約 23 KB）與 `assets/airport-tall-fast.webp`（540 × 960，約 34 KB）。
+- 依目前畫面方向只啟動一組底圖；fast 圖完成後再以低優先權載入高畫質版本。
+- 貓咪接物動作圖改在按下開始後延後載入；原圖不覆蓋，原本高畫質底圖仍保留。
+- 此次程式與素材 commit：`ebd9a8b`；回復基準：`checkpoint-before-background-optimization`／`d966977`。
+
+### 驗證與限制
+
+- 已通過 inline JavaScript `node --check`、fast.webp 尺寸與檔案存在檢查、方向載入條件靜態檢查及 `git diff --check`。
+- 尚未在真實 iPhone／iPad、慢速行動網路與冷快取實測；部署後需比較首次開啟的底圖出現時間與清晰度。

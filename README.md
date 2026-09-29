@@ -40,9 +40,14 @@ conference-game/
     ├── conference-badge-large-fast.webp
     ├── airport-wide.webp
     ├── airport-tall.webp
+    ├── airport-wide-fast.webp
+    ├── airport-tall-fast.webp
     ├── items-atlas.webp
     └── scorecard-bg.webp
 ```
 
 角色、直橫式出國場景、十二種道具圖集與計分卡皆使用本機 WebP 素材；遊戲中的背景合成、角色移動與掉落效果以 Canvas 繪製。圖集約 193 KB，不依賴第三方 JavaScript 套件。不依賴第三方 JavaScript 套件。
+## 圖片載入策略
 
+- 底圖依螢幕方向載入：手機先載入 `airport-tall-fast.webp`，桌機先載入 `airport-wide-fast.webp`，不再一開始同時下載兩個方向的底圖。
+- fast.webp 完成後，才以低優先權載入對應的高畫質底圖；貓咪接物動作圖延後到按下開始後載入，降低首屏競爭。
