@@ -26,6 +26,7 @@ conference-game/
 ├── index.html
 ├── README.md
 ├── LESSONS_LEARNED.md
+├── IMAGE_LOADING_OPTIMIZATION_PROMPT.md
 ├── 接接樂_遊戲道具清單.md
 ├── favicon-transparent.ico
 ├── favicon-transparent.png
